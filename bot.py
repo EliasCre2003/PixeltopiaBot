@@ -17,10 +17,12 @@ async def on_ready():
 
 
 @bot.command()
-async def whitelist(ctx, arg=None, name=''):
-    if arg == None:
+async def whitelist(ctx, arg=None, name=None):
+    if arg is None:
         return
     if arg == "add":
+        if name is None:
+            return
         # Add user to whitelist
         await ctx.send(f'Added {name} to the whitelist')
     if arg == "remove":
@@ -29,5 +31,42 @@ async def whitelist(ctx, arg=None, name=''):
     if arg == "list":
         # List all users in whitelist
         await ctx.send(f'Whitelist: {name}')
+
+
+@bot.command()
+async def stop(ctx):
+    await ctx.send('Stopping server...')
+
+
+@bot.command()
+async def restart(ctx):
+    await ctx.send('Restarting server...')
+
+
+@bot.command()
+async def gamerule(ctx, rule=None, value=None):
+    if rule is None:
+        return
+    if value is None:
+        return
+    # Set gamerule
+    await ctx.send(f'Set gamerule {rule} to {value}')
+
+
+@bot.command()
+async def ban(ctx, name=None):
+    if name is None:
+        return
+    # Ban user
+    await ctx.send(f'Banned {name}')
+
+
+@bot.command()
+async def banip(ctx, name=None):
+    if name is None:
+        return
+    # Ban IP
+    await ctx.send(f'IP Banned {name}')
+
 
 bot.run(TOKEN)
